@@ -6,6 +6,11 @@ ON d.id_curso = c.id_curso;
 /*2. Apresentar o nome do professor e a sua área.*/
 
 /*3. Apresentar o código da turma, o semestre, o nome do aluno e a nota final.*/
+SELECT a.nome_aluno AS ALUNO, t.id_turma AS CODIGO_TURMA, t.semestre AS SEMESTRE
+FROM aluno a INNER JOIN turma_aluno ta
+ON a.id_aluno = ta.id_aluno
+INNER JOIN turma t
+ON ta.id_turma = t.id_turma;//incompleto
 
 /*4. Apresentar o nome do aluno, o nome do curso para os alunos que já concluíram o curso.*/
 
