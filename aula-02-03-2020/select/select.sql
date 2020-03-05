@@ -72,6 +72,15 @@ ON D.ID_DISCIPLINA = T.ID_DISCIPLINA
 WHERE NOME_DISCIPLINA = 'BDI' 
 
 /*10. Apresentar o código da turma, nome da disciplina e quantidade de alunos para as turma de 2018/1.*/
+SELECT T.ID_TURMA, T.SEMESTRE, D.NOME_DISCIPLINA, COUNT(A.ID_ALUNO)
+FROM TURMA T INNER JOIN TURMA_ALUNO TA
+ON T.ID_TURMA = TA.ID_TURMA
+INNER JOIN ALUNO A
+ON A.ID_ALUNO = TA.ID_ALUNO
+INNER JOIN DISCIPLINA D
+ON D.ID_DISCIPLINA = T.ID_DISCIPLINA
+WHERE T.SEMESTRE = '2018/1'
+GROUP BY T.ID_TURMA, T.SEMESTRE, D.NOME_DISCIPLINA
 
 /*11. Apresentar o código da turma, nome da disciplina para as turma de 2018/1 com mais de 30 alunos.*/
 
