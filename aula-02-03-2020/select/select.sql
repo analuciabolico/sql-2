@@ -104,3 +104,11 @@ WHERE QT_ALUNO > 30
 
 /*14. Apresentar o nome dos cursos e o total de turmas ofertadas em 2018/1.
   Se o curso não tiver nenhuma turma ele deve aparecer também com o total de turma 0.*/
+SELECT NOME_CURSO, CONTA_TURMA FROM (
+    SELECT NOME_CURSO, ID_TURMA, SEMESTRE, 
+    COUNT(ID_TURMA) OVER (PARTITION BY NOME_CURSO) CONTA_TURMA
+    FROM CURSO C
+    INNER JOIN DISCIPLINA D ON D.ID_CURSO =  C.ID_CURSO
+    LEFT JOIN TURMA T ON D.ID_DISCIPLINA = T.ID_DISCIPLINA
+    WHERE SEMESTRE = '2018/1' OR SEMESTRE IS NULL
+);
