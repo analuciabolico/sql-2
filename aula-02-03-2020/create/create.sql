@@ -1,8 +1,14 @@
+create table area (
+id_area number constraint pk_area primary key,
+nome_area varchar2(15) not null
+);
+
 create table curso (
 id_curso number constraint pk_curso primary key,
 nome_curso varchar2(15) not null,
 n_semestres varchar2(15),
-turno varchar2(15)
+turno varchar2(15),
+id_area number 
 );
 
 create table disciplina (
@@ -22,7 +28,8 @@ create table professor (
 id_professor number constraint pk_professor primary key,
 nome_professor varchar2(15) not null,
 n_horas number,
-id_curso number
+id_curso number,
+id_area number
 );
 
 create table turma (
@@ -54,7 +61,11 @@ alter table aluno
 add (d_nascimento date
 );
 
+alter table curso add (constraint fk_curso_area foreign key (id_area) references area (id_area));
+
 alter table professor add (constraint fk_professor_curso foreign key (id_curso) references curso (id_curso));
+
+alter table professor add (constraint fk_professor_area foreign key (id_area) references area (id_area));
 
 alter table disciplina add constraint fk_disciplina_id_curso foreign key (id_curso) references curso;
 
@@ -70,6 +81,7 @@ alter table aluno_curso
 add (constraint ck_data_inicio check (data_inicio is not null), constraint fk_aluno_curso_aluno foreign key (id_aluno) references aluno (id_aluno),
 constraint fk_aluno_curso_curso foreign key (id_curso) references curso (id_curso));
 
+create sequence s_id_area nocache;
 create sequence s_id_curso nocache;
 create sequence s_id_disciplina nocache start with 100;
 create sequence s_id_aluno nocache start with 200;
