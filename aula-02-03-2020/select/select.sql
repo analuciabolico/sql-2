@@ -62,6 +62,14 @@ SELECT COUNT(ALUNO) FROM (
 )
 
 /*9. Apresentar a média geral na disciplina de BDI em 2018/1.*/
+SELECT AVG(MEDIA_FINAL)
+FROM TURMA T INNER JOIN TURMA_ALUNO TA
+ON T.ID_TURMA = TA.ID_TURMA
+INNER JOIN ALUNO A
+ON A.ID_ALUNO = TA.ID_ALUNO
+INNER JOIN DISCIPLINA D
+ON D.ID_DISCIPLINA = T.ID_DISCIPLINA
+WHERE NOME_DISCIPLINA = 'BDI' 
 
 /*10. Apresentar o código da turma, nome da disciplina e quantidade de alunos para as turma de 2018/1.*/
 
