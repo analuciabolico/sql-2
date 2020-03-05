@@ -83,6 +83,19 @@ WHERE T.SEMESTRE = '2018/1'
 GROUP BY T.ID_TURMA, T.SEMESTRE, D.NOME_DISCIPLINA
 
 /*11. Apresentar o código da turma, nome da disciplina para as turma de 2018/1 com mais de 30 alunos.*/
+SELECT ID_TURMA, NOME_DISCIPLINA 
+FROM (
+    SELECT T.ID_TURMA, D.NOME_DISCIPLINA, COUNT(A.ID_ALUNO) QT_ALUNO
+    FROM TURMA T INNER JOIN TURMA_ALUNO TA
+    ON T.ID_TURMA = TA.ID_TURMA
+    INNER JOIN ALUNO A
+    ON A.ID_ALUNO = TA.ID_ALUNO
+    INNER JOIN DISCIPLINA D
+    ON D.ID_DISCIPLINA = T.ID_DISCIPLINA
+    WHERE T.SEMESTRE = '2018/1'
+    GROUP BY T.ID_TURMA, T.SEMESTRE, D.NOME_DISCIPLINA
+) 
+WHERE QT_ALUNO > 30
 
 /*12. Apresentar o nome da área e o total de cursos da área. Se a área não tiver nenhum curso deve aparecer o total de cursos 0.*/
 
