@@ -33,3 +33,13 @@ where media_final = (select Max(media_final)
                     )
 
 --18. Apresentar o nome dos alunos do curso de Informática que nunca cursaram a disciplina de BDI.
+select nome_aluno
+from aluno a
+join aluno_curso ac on a.id_aluno = ac.id_aluno
+join curso c on c.id_curso = ac.id_curso
+where c.nome_curso = 'Informática'
+and (a.id_aluno) not in (select (ta.id_aluno)
+            from turma_aluno ta
+            join turma t on ta.id_turma = t.id_turma
+            join disciplina d on d.id_disciplina = t.id_disciplina
+            and d.nome_disciplina = 'BDI')
