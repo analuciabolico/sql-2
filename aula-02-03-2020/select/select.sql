@@ -4,9 +4,10 @@ FROM curso c LEFT OUTER JOIN disciplina d
 ON d.id_curso = c.id_curso;
 
 /*2. Apresentar o nome do professor e a sua área.*/
-SELECT NOME_PROFESSOR, NOME_CURSO FROM PROFESSOR P
-INNER JOIN CURSO C
-ON P.ID_CURSO = C.ID_CURSO
+SELECT NOME_PROFESSOR, NOME_AREA 
+FROM PROFESSOR P
+INNER JOIN AREA A
+ON P.ID_AREA = A.ID_AREA
 
 /*3. Apresentar o código da turma, o semestre, o nome do aluno e a nota final.*/
 SELECT T.ID_TURMA, T.SEMESTRE, NOME_ALUNO, MEDIA_FINAL
@@ -98,9 +99,17 @@ FROM (
 WHERE QT_ALUNO > 30
 
 /*12. Apresentar o nome da área e o total de cursos da área. Se a área não tiver nenhum curso deve aparecer o total de cursos 0.*/
+SELECT NOME_AREA, 
+COUNT (NOME_CURSO) N_CURSO
+FROM AREA A LEFT JOIN CURSO C ON C.ID_AREA = A.ID_AREA
+GROUP BY NOME_AREA ;
 
 /*13. Apresentar o nome do professor e o total de disciplinas ministradas por este professor.
   Se o professor não ministrar nenhuma disciplina deve aparecer o valor 0.*/
+  SELECT NOME_PROFESSOR, COUNT(NOME_DISCIPLINA)
+  FROM PROFESSOR P LEFT JOIN CURSO C ON C.ID_CURSO = P.ID_CURSO
+  LEFT JOIN DISCIPLINA D ON D.ID_CURSO = C.ID_CURSO
+  GROUP BY NOME_PROFESSOR
 
 /*14. Apresentar o nome dos cursos e o total de turmas ofertadas em 2018/1.
   Se o curso não tiver nenhuma turma ele deve aparecer também com o total de turma 0.*/
