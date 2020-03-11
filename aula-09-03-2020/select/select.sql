@@ -21,5 +21,15 @@ where ta.media_final >= all (select media_final
                         )
 
 --17. Apresentar o nome do aluno que tirou a maior nota na disciplina de BDI em 2018/1.
+select nome_aluno
+from aluno a
+join turma_aluno ta on ta.id_aluno = a.id_aluno
+where media_final = (select Max(media_final)
+                    from turma_aluno ta
+                    join turma t on ta.id_turma = t.id_turma
+                    join disciplina d on d.id_disciplina = t.id_disciplina
+                    where t.semestre = '2018/1'
+                    and d.nome_disciplina = 'BDI'
+                    )
 
 --18. Apresentar o nome dos alunos do curso de Informática que nunca cursaram a disciplina de BDI.
